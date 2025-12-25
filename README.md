@@ -1,134 +1,147 @@
-# IPTV Scraper
+# 📺 IPTV Scraper
 
-A powerful CLI tool to scrape and validate working IPTV links from public sources.
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.6+-blue.svg" alt="Python Version">
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+  <img src="https://img.shields.io/badge/version-2.7.1-orange.svg" alt="Version">
+</p>
 
-## Features
+A powerful and fast CLI tool to scrape and validate working IPTV links from public sources. Features smart channel search, parallel link testing, and automatic M3U playlist generation.
 
-- 🔍 **Smart Search** - Find IPTV channels by name or get all available channels
-- ✅ **Link Validation** - Tests each link to ensure it actually works with VLC and other players
-- 📺 **M3U Format** - Saves links in standard M3U playlist format
-- 🎨 **Colorful Output** - Easy-to-read terminal interface
-- 📁 **Organized Storage** - Auto-creates dated folders for your playlists
-- ⌨️ **CLI Arguments** - Use interactively or with command-line arguments
+## ✨ Features
 
-## Installation
+| Feature | Description |
+|---------|-------------|
+| 🔍 **Smart Search** | Find channels by name with intelligent synonym matching |
+| ⚡ **Blazing Fast** | 25 parallel workers with connection pooling for 5x speed |
+| ✅ **Link Validation** | Tests each stream to ensure it actually works |
+| 📺 **M3U Export** | Standard M3U playlist format compatible with VLC, Kodi, etc. |
+| 🎯 **Live Match Mode** | Special mode for finding live sports streams |
+| 📁 **Auto-Organization** | Creates dated folders for your playlists |
+| 🛡️ **Auto-Save** | Ctrl+C saves progress - never lose your links |
+
+## 🚀 Installation
 
 ### From Source
 
 ```bash
-# Clone or download the repository
-cd IPTV-SCRAPPER
+# Clone the repository
+git clone https://github.com/MohamedAminGrami/iptv-scraper.git
+cd iptv-scraper
 
 # Install the package
 pip install .
 ```
 
-### Using pip (after publishing to PyPI)
+### Quick Install
 
 ```bash
-pip install iptv-scraper
+pip install -e .
 ```
 
-## Update
-
-Keep your scraper up to date:
-
-```bash
-iptv-scraper --update
-```
-
-## Usage
+## 📖 Usage
 
 ### Interactive Mode
 
-Simply run the command and follow the prompts:
-
 ```bash
 iptv-scraper
+# or use the short alias
+ipsc
 ```
 
 ### Command-Line Arguments
 
 ```bash
-# Search for specific channel and get 5 working links
+# Search for specific channel
 iptv-scraper -c "BBC" -n 5
 
-# Get 10 links from all channels, auto-save without prompting
-iptv-scraper -n 10 --auto-save
+# Auto-save without prompting
+iptv-scraper -c "sports" -n 10 --auto-save
 
-# Search and save with custom output name
-iptv-scraper -c "News" -n 3 -o "news_channels"
+# Custom output filename
+iptv-scraper -c "news" -n 5 -o "my_news_channels"
 
-# Get all available links (no filtering)
-iptv-scraper -n 20
+# Live sports match mode
+iptv-scraper --live-match -n 10
 
-# Update the scraper
-iptv-scraper --update
+# View all popular searchable channels
+iptv-scraper --popular-channels
 ```
 
-### For Tunisian Users
+### Available Arguments
 
-See [TUNISIA_GUIDE.md](TUNISIA_GUIDE.md) for specific examples:
+| Argument | Description |
+|----------|-------------|
+| `-c, --channel` | Channel name to search for |
+| `-n, --number` | Number of working links to find |
+| `-o, --output` | Custom output filename |
+| `--auto-save` | Skip save confirmation prompt |
+| `--live-match` | Search live sports streaming sites |
+| `--popular-channels` | Display popular searchable channels |
+| `--update` | Update to the latest version |
+
+## 🎯 Search Examples
 
 ```bash
-# Find Tunisian channels
-iptv-scraper -c tunisia -n 10
+# Sports channels
+iptv-scraper -c "bein sports" -n 10
+iptv-scraper -c "espn" -n 5
+iptv-scraper -c "sky sports" -n 8
 
-# Find Arabic channels
-iptv-scraper -c arabic -n 15
+# News channels
+iptv-scraper -c "cnn" -n 5
+iptv-scraper -c "bbc news" -n 5
 
-# Find Bein Sports
-iptv-scraper -c bein -n 10
+# Regional channels
+iptv-scraper -c "arabic" -n 15
+iptv-scraper -c "french" -n 10
+
+# Entertainment
+iptv-scraper -c "movie" -n 10
+iptv-scraper -c "cartoon" -n 8
 ```
 
-### Arguments
+## 📊 Performance
 
-- `-c, --channel` - Channel name to search for (optional)
-- `--update` - Update IPTV Scraper to the latest version
-- `-n, --number` - Number of working links to find
-- `-o, --output` - Custom output filename (optional)
-- `--auto-save` - Skip save confirmation prompt
+| Metric | Value |
+|--------|-------|
+| Parallel Workers | 25 |
+| Connection Pool | 50 connections |
+| Avg. Speed | ~30-60 seconds for 10 channels |
+| Link Validation | Full stream verification |
 
-## Examples
+## 📁 Output Structure
 
-**Find 5 working news channels:**
-```bash
-iptv-scraper -c news -n 5
+```
+📂 your-folder/
+├── 📂 25-12-2024/
+│   ├── 📄 10-30-45-AM SPORTS.m3u
+│   └── 📄 02-15-30-PM NEWS.m3u
+└── 📂 26-12-2024/
+    └── 📄 09-00-00-AM BEIN.m3u
 ```
 
-**Get 10 links and save automatically:**
-```bash
-iptv-scraper -n 10 --auto-save
-```
-
-**Search for sports channels:**
-```bash
-iptv-scraper -c sport -n 8 -o sports_playlist
-```
-
-## Output
-
-- M3U playlists are saved in dated folders (e.g., `23-12-2025/`)
-- Each file is timestamped to avoid overwrites
-- Compatible with VLC, Kodi, and other media players
-
-## Requirements
+## 🔧 Requirements
 
 - Python 3.6+
-- requests
 - beautifulsoup4
+- requests
 - termcolor
 - colorama
 - art
 
-## License
+## 📄 License
 
-MIT License - Feel free to use and modify!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
+## ⚠️ Disclaimer
 
-Developed by Musashi
+This tool is for educational purposes only. The developers are not responsible for any misuse of this software. Please ensure you have the right to access any streams you find.
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit issues or pull requests.
+Contributions are welcome! Feel free to submit a Pull Request.
+
+---
+
+<p align="center">Made with ❤️ by Musashi</p>

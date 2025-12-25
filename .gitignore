@@ -20,23 +20,32 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 venv/
 ENV/
 env/
+.env
+.venv/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Output folders
-*/
-!iptv_scraper/
+# Output folders (scraped playlists)
+[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]/
 *.m3u
+*.m3u8
 
 # OS
 .DS_Store
 Thumbs.db
+ehthumbs.db
+
+# Keep source folders
+!iptv_scraper/
+
